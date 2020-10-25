@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import './App.css';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundary from '../components/ErrorBoundary';
+import { setSearchField } from '../actions';
 
-const App = () => {
+const App = ({ searchField, onSearchChange }) => {
   const [robots, setRobots] = useState([]);
-  const [searchField, setSearchField] = useState('');
-
-  const onSearchChange = e => {
-    setSearchField(e.target.value);
-  };
 
   const filteredRobots = robots.filter(robot =>
     robot.name.toLowerCase().includes(searchField.toLowerCase())
@@ -21,9 +18,7 @@ const App = () => {
   useEffect(() => {
     // Can't change this to async/await (produces CORS response)
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         setRobots(data);
       });
@@ -46,4 +41,12 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => ({
+  searchField: state.searchRobots.searchField,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSearchChange: e => dispatch(setSearchField(e.target.value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
