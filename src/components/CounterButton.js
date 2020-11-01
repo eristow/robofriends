@@ -5,8 +5,6 @@ const CounterButton = ({ color }) => {
 
   const updateCount = () => setCount(count + 1);
 
-  console.log('counterbutton');
-
   return (
     <button color={color} onClick={updateCount}>
       Count: {count}
