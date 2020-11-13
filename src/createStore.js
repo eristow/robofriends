@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import { searchRobots, requestRobots } from './reducers';
 
 export default function configureStore() {
-  const isDev = process.env.NODE_ENV !== 'development';
+  const isDev = process.env.NODE_ENV !== 'production';
 
   const rootReducer = combineReducers({ searchRobots, requestRobots });
 
