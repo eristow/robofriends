@@ -8,7 +8,9 @@ import 'tachyons';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import App from './containers/App';
-import store from './createStore';
+import configureStore from './createStore';
+
+const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>

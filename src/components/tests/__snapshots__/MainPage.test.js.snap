@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainPage should render the MainPage component 1`] = `
+<div
+  className="tc"
+>
+  <Memo() />
+  <SearchBox
+    id="searchBox"
+    searchField=""
+  />
+  <Scroll>
+    <ErrorBoundary>
+      <CardList
+        data={
+          Array [
+            Object {
+              "email": "joans@gmail.com",
+              "id": 3,
+              "name": "John Joans",
+            },
+            Object {
+              "email": "sarah@gmail.com",
+              "id": 4,
+              "name": "Sarah Joans",
+            },
+          ]
+        }
+        id="cardList"
+      />
+    </ErrorBoundary>
+  </Scroll>
+</div>
+`;

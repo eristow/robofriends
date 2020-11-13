@@ -4,21 +4,31 @@ import thunkMiddleware from 'redux-thunk';
 
 import { searchRobots, requestRobots } from './reducers';
 
-const isDev = process.env.NODE_ENV === 'development';
+export default function configureStore() {
+  const isDev = process.env.NODE_ENV !== 'development';
 
-const rootReducer = combineReducers({ searchRobots, requestRobots });
+  const rootReducer = combineReducers({ searchRobots, requestRobots });
 
-const logger = createLogger();
+  let composeEnhancers = compose;
 
-const store = createStore(
-  rootReducer,
-  compose(
-    // applyMiddleware(thunkMiddleware, logger),
-    applyMiddleware(thunkMiddleware)
-    // isDev &&
-    //   window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    //   window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+  if (isDev && typeof window === 'object') {
+    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
+  }
 
-export default store;
+  const middlewares = [thunkMiddleware];
+
+  if (isDev) {
+    const logger = createLogger();
+    middlewares.push(logger);
+  }
+
+  const enhancers = [applyMiddleware(...middlewares)];
+
+  const store = createStore(
+    rootReducer,
+    compose(composeEnhancers(...enhancers))
+  );
+
+  return store;
+}
