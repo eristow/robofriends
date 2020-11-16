@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
 import './MainPage.css';
-import CardList from '../components/CardList';
-import SearchBox from '../components/SearchBox';
-import Scroll from '../components/Scroll';
-import ErrorBoundary from '../components/ErrorBoundary';
-import Header from '../components/Header';
+import CardList from './CardList';
+import SearchBox from './SearchBox';
+import Scroll from './Scroll';
+import ErrorBoundary from './ErrorBoundary';
+import Header from './Header';
 
 const MainPage = ({
   searchField,
